@@ -1,9 +1,17 @@
 # MetaBeEF
 MetaBeEF is a bash script that initializes Browser Exploitation Framework with Metasploit for Linux [for now ;)]
 
-To run this script simple type:
+### Installation
+You have to give permissions to that file. That's all. To do this type:
 ```sh
-$ ./MetaBeEF.sh
+$ chmod +x metabeef.sh
+```
+
+
+### Launching
+To run this script type:
+```sh
+$ ./metabeef.sh
 ```
 **Warning!** This script doesn't make any changes to your config files. You have to do it by yourself!
 
