@@ -5,6 +5,9 @@
 # Launch Directly - set to true if you want to Launch MetaBeEF without menu
 DirectL=false
 
+#Local IPv4
+IP=192.168.0.15
+
 # BeEF Path
 BeefPath="/usr/share/beef-xss/"
 
@@ -12,7 +15,7 @@ BeefPath="/usr/share/beef-xss/"
 MetaPath="/usr/share/metasploit-framework/"
 
 # BeEF Launch Delay (minimum 8s) - Metasploit must run first and the process of heating up takes some time...
-DELAY=8s
+DELAY=10s
 
 ### End of Config ###
 
@@ -73,7 +76,7 @@ function Info {
 
 # Warning
 function Warning {
-  echo -e "    ${GREY}[${YELLOW}WARNING${GREY}] ${lYELLOW}$1"
+  echo -e "   ${GREY}[${YELLOW}WARNING${GREY}] ${lYELLOW}$1"
 }
 
 # Critical
@@ -87,6 +90,22 @@ function Spaces {
 }
 
 ### Messages ###
+
+### ========================================================================================== ###
+
+#Setup
+function Setup {
+if [ "" == "$IP" ];
+then  
+  Warning "Config file seems to not been configured yet."
+    Spaces "  Please write your IPv4 address in this script."
+    echo
+    exit 1
+  else
+    Success "Local IP found! [${WHITE}$IP${lGREEN}]"
+    sleep 1s
+fi 
+}
 
 #Find beef and Metasploit pathes
 function CheckPaths {
@@ -137,14 +156,14 @@ while [ 0!=1 ]; do
 	elif [ "$ans" == '2' ];
 	  then
             echo
-            Warning "Sorry, but MetaBeEF is still WIP. This feature is comming soon..."
+            Warning "Sorry, but MetaBeEF is still WIP. This feature is coming soon..."
             sleep 3s
             echo
 	    
 	elif [ "$ans" == '3' ];
 	  then
             echo
-            Warning "Sorry, but MetaBeEF is still WIP. This feature is comming soon..."
+            Warning "Sorry, but MetaBeEF is still WIP. This feature is coming soon..."
             sleep 3s
             echo
 
@@ -167,7 +186,7 @@ done
 
 ###### ===== LAUNCH ===== ######
 function Launch {
-  xterm -e msfconsole -x "workspace default; load msgrpc ServerHost=192.168.0.15 Pass=abc123" & cd $BeefPath
+  xterm -e msfconsole -x "workspace default; load msgrpc ServerHost=$IP Pass=abc123" & cd $BeefPath
   banner
   echo
   Info "To terminate the process press ${WHITE}CTRL+C"
@@ -179,12 +198,12 @@ function Launch {
 }
 
 ### ===== Main Script Queue ===== ###
+banner
+CheckPaths
+Setup
 if [ "$DirectL" == true ];
   then
     Launch
-
 else
-    banner
-    CheckPaths
     Menu
 fi
