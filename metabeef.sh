@@ -6,7 +6,7 @@
 DirectL=false
 
 #Local IPv4
-IP=192.168.0.15
+IP=
 
 # BeEF Path
 BeefPath="/usr/share/beef-xss/"
